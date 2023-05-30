@@ -2,59 +2,55 @@
 #include <stdio.h>
 #include <stdarg.h>
 /**
-* _print - printf function entry point to print out according to format
-*
+* _printf - printf function entry point to print out according to format
 * @format: an argument that printf function will recieve
-*
-* @...: elipsis
-*
-* Returnii: increment the characters and integers
+* @...: ellipsis
+* Return: increment the characters and integers
 */
 int _printf(const char *format, ...)
-
-int increment = 0, c;
+{
+int increment = 0, ch;
 va_list args;
-char *str;
 
 va_start(args, format);
 
-while (*format)
+while (*format != '\0')
 {
 	if (*format == '%')
 	{
 		format++;
 
-	if (*format == 'c')
-	{
-		c = va_arg(args, int);
-		putchar(c);
-		increment++;
-	}
-	else if (*format == 's')
-	{
-		*str = va_arg(args, char *);
-
-		while (*str)
+		if (*format == 'c')
 		{
-			putchar(*str);
+			ch = va_arg(args, int);
+			putchar(ch);
 			increment++;
-			str++;
 		}
-	}
-	else if (*format == '%')
-	{
-		putchar('%');
-		increment++;
-	}
+		else if (*format == 's')
+		{
+			char *s = va_arg(args, char *);
+
+			while (*s != '\0')
+			{
+				putchar(*s);
+				increment++;
+				s++;
+			}
+		}
+		else if (*format == '%')
+		{
+			putchar('%');
+			increment++;
+		}
 	}
 	else
 	{
-		(*format);
+		putchar(*format);
 		increment++;
 	}
+
 	format++;
 }
-va _end(args);
-return increment;
+va_end(args);
+return (increment);
 }
-

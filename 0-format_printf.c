@@ -8,12 +8,11 @@
 
 int _printf(const char *format, ...)
 {
+	int increment = 0;
 	va_list args;
+	
 	va_start(args, format);
 
-	int num;
-	char c;
-	char *str;
 
 	while (*format != '\0')
 	{
@@ -24,43 +23,52 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 's':
-					str = va_arg(args, char *);
-					while (*str != '\0')
 					{
-						putchar(*str);
-						str++;
-						num++;
+						char *str = va_arg(args, char *);
+						while (*str != '\0')
+						{
+							putchar(*str);
+							str++;
+							increment++;
+						}
 					}
 					break;
 
 				case 'c':
-					c = (char)va_arg(args, int);
-					putchar(c);
-					num++;
-					break;
+					{
+						int c = (char)va_arg(args, int);
+						putchar(c);
+						increment++;
+						break;
+					}
 
 				case '%':
-					putchar('%');
-					num++;
-					break;
+					{
+						putchar('%');
+						increment++;
+						break;
+					}
 
 				default:
-					putchar('%');
-					putchar(*format);
-					num += 2;
-					break;
+					{
+						putchar('%');
+						putchar(*format);
+						increment += 2;
+						break;
+					}
 			}
 		}
-		else
-		{
-			putchar(*format);
-			num++;
+			else
+			{
+				putchar(*format);
+				increment++;
+			}
+
+			format++;
 		}
 
-		format++;
+		va_end(args);
+
+
+		return (increment);
 	}
-
-
-	va_end(args);
-	return (num);
-}

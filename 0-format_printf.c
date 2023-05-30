@@ -2,9 +2,16 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-/*
-   *
-   */
+/**
+  * _print - printf function entry point to print out according to format
+  *
+  * @format: an argument that printf function will recieve
+  *
+  * @...: elipsis
+  *
+  * Return: increment of the characters and integers
+  */
+
 
 int _printf(const char *format, ...)
 {

@@ -17,40 +17,40 @@ va_start(args, format);
 
 while (*format != '\0')
 {
-if (*format == '%')
-{
-format++;
+	if (*format == '%')
+	{
+		format++;
 
-if (*format == 'c')
-{
-ch = va_arg(args, int);
-putchar(ch);
-increment++;
-}
-else if (*format == 's')
-{
-s = va_arg(args, char *);
+		if (*format == 'c')
+		{
+			ch = va_arg(args, int);
+			putchar(ch);
+			increment++;
+		}
+		else if (*format == 's')
+		{
+			s = va_arg(args, char *);
 
-while (*s != '\0')
-{
-putchar(*s);
-increment++;
-s++;
-}
-}
-else if (*format == '%')
-{
-putchar('%');
-increment++;
-}
-}
-else
-{
-putchar(*format);
-increment++;
-}
+			while (*s != '\0')
+			{
+				putchar(*s);
+				increment++;
+				s++;
+			}
+		}
+		else if (*format == '%')
+		{
+			putchar('%');
+			increment++;
+		}
+	}
+	else
+	{
+		putchar(*format);
+		increment++;
+	}
 
-format++;
+	format++;
 }
 va_end(args);
 return (increment);

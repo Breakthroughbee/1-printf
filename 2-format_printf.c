@@ -9,7 +9,7 @@
   */
 int _printf(const char *format, ...)
 {
-	int ch, d;
+	int ch, increment = 0;
 	char *str;
 	va_list args;
 
@@ -23,30 +23,33 @@ int _printf(const char *format, ...)
 			if (*format == 'c')
 			{
 				ch = va_arg(args, int);
-				printf("%d", ch);
+				putchar(ch);
+				increment++;
 			}
-			if (*format == 's')
+			else if (*format == 's')
 			{
 				str = va_arg(args, char *);
-				printf("%s", str);
-			}
-			else if (*format == 'd' || 'i')
-			{
-				d = va_arg(args, int);
-				printf("%d", d);
+				while (*str != '\0')
+				{
+					putchar(*str);
+					str++;
+					increment++;
+				}
 			}
 			else if (*format == '%')
 			{
-				printf("%%");
+				putchar('%');
+				putchar(*format);
+				increment++;
 			}
-			else
-				printf("Invalid specifier: %c", *format);
 		}
 		else
+		{
 			putchar(*format);
-
+			increment++;
+		}
 		format++;
 	}
 	va_end(args);
-	return (0);
+	return (increment);
 }

@@ -39,26 +39,14 @@ int _printf(const char *format, ...)
 			{
 				printf("%%");
 			}
-			else if(*format == 'r')
-			{
-				str = va_arg(args, char *);
-				if (str == NULL)
-					str = "(null)";
-				format++;
-			}
 			else
-			{
 				printf("Invalid specifier: %c", *format);
-			}
 		}
-		
 		else
 			putchar(*format);
 
 		format++;
 	}
-
 	va_end(args);
-
 	return (0);
 }
